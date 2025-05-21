@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: APIGateway
+  cloud:
+    gateway:
+      routes:
+        - id: book-service
+          uri: lb://BOOK-SERVICE
+          predicates:
+            - Path=/api/books/**
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/users/**
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - Path=/api/orders/**
+        - id: customer-service
+          uri: lb://CUSTOMER-SERVICE
+          predicates:
+            - Path=/api/customers/**
+        - id: catalog-service
+          uri: lb://CATALOG-SERVICE
+          predicates:
+            - Path=/api/catalog/**
+        - id: stock-service
+          uri: lb://STOCK-SERVICE
+          predicates:
+            - Path=/api/stock/**
+        - id: basket-service
+          uri: lb://BASKET-SERVICE
+          predicates:
+            - Path=/api/basket/**
+        - id: purchase-service
+          uri: lb://PURCHASE-SERVICE
+          predicates:
+            - Path=/api/purchases/**
+        - id: payment-service
+          uri: lb://PAYMENT-SERVICE
+          predicates:
+            - Path=/api/payments/**
+
+server:
+  port: 4848
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+      base-path: /manage
